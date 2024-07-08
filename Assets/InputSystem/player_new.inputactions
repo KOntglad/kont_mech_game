@@ -6,9 +6,18 @@
             "id": "2f1b9a30-4ca7-46eb-ab44-3ee3ce79d1ae",
             "actions": [
                 {
-                    "name": "player_mouse",
+                    "name": "player_mouse_x",
                     "type": "Value",
                     "id": "96d327d4-eef4-4aea-9a5a-9c2522905dc4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "player_mouse_y",
+                    "type": "Value",
+                    "id": "6dbffc2d-31a5-4b3c-a465-e0f2f655e7d8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -17,46 +26,13 @@
             ],
             "bindings": [
                 {
-                    "name": "mouse_y",
-                    "id": "9c20ed74-b5d2-41ff-bf41-56f6ed371319",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "player_mouse",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "positive",
-                    "id": "5a2acdea-1ab8-45a8-a797-0bf632164d6c",
-                    "path": "<Mouse>/delta/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "player_mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "negative",
-                    "id": "4c78595c-1e5f-4fe0-ac23-8eb8c1f3b16d",
-                    "path": "<Mouse>/delta/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "player_mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "mouse_x",
                     "id": "9beea1bf-7ef7-416b-a83d-331e83f2a344",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "player_mouse",
+                    "action": "player_mouse_x",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -67,18 +43,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "player_mouse",
+                    "action": "player_mouse_x",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "negative",
                     "id": "f4e0198e-1f50-4990-b3fd-810f38ad05aa",
-                    "path": "<Mouse>/delta/right",
+                    "path": "<Mouse>/delta/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "player_mouse",
+                    "action": "player_mouse_x",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "mouse_y",
+                    "id": "9c20ed74-b5d2-41ff-bf41-56f6ed371319",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "player_mouse_y",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "positive",
+                    "id": "5a2acdea-1ab8-45a8-a797-0bf632164d6c",
+                    "path": "<Mouse>/delta/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "player_mouse_y",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "negative",
+                    "id": "4c78595c-1e5f-4fe0-ac23-8eb8c1f3b16d",
+                    "path": "<Mouse>/delta/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "player_mouse_y",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

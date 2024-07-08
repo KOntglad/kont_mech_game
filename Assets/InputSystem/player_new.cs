@@ -28,9 +28,18 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
             ""id"": ""2f1b9a30-4ca7-46eb-ab44-3ee3ce79d1ae"",
             ""actions"": [
                 {
-                    ""name"": ""player_mouse"",
+                    ""name"": ""player_mouse_x"",
                     ""type"": ""Value"",
                     ""id"": ""96d327d4-eef4-4aea-9a5a-9c2522905dc4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""player_mouse_y"",
+                    ""type"": ""Value"",
+                    ""id"": ""6dbffc2d-31a5-4b3c-a465-e0f2f655e7d8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -39,46 +48,13 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""mouse_y"",
-                    ""id"": ""9c20ed74-b5d2-41ff-bf41-56f6ed371319"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""player_mouse"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""5a2acdea-1ab8-45a8-a797-0bf632164d6c"",
-                    ""path"": ""<Mouse>/delta/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""player_mouse"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""4c78595c-1e5f-4fe0-ac23-8eb8c1f3b16d"",
-                    ""path"": ""<Mouse>/delta/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""player_mouse"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""mouse_x"",
                     ""id"": ""9beea1bf-7ef7-416b-a83d-331e83f2a344"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""player_mouse"",
+                    ""action"": ""player_mouse_x"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -89,18 +65,51 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""player_mouse"",
+                    ""action"": ""player_mouse_x"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
+                    ""name"": ""negative"",
                     ""id"": ""f4e0198e-1f50-4990-b3fd-810f38ad05aa"",
-                    ""path"": ""<Mouse>/delta/right"",
+                    ""path"": ""<Mouse>/delta/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""player_mouse"",
+                    ""action"": ""player_mouse_x"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""mouse_y"",
+                    ""id"": ""9c20ed74-b5d2-41ff-bf41-56f6ed371319"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""player_mouse_y"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""5a2acdea-1ab8-45a8-a797-0bf632164d6c"",
+                    ""path"": ""<Mouse>/delta/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""player_mouse_y"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""4c78595c-1e5f-4fe0-ac23-8eb8c1f3b16d"",
+                    ""path"": ""<Mouse>/delta/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""player_mouse_y"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -123,7 +132,8 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
 }");
         // player
         m_player = asset.FindActionMap("player", throwIfNotFound: true);
-        m_player_player_mouse = m_player.FindAction("player_mouse", throwIfNotFound: true);
+        m_player_player_mouse_x = m_player.FindAction("player_mouse_x", throwIfNotFound: true);
+        m_player_player_mouse_y = m_player.FindAction("player_mouse_y", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,12 +195,14 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
     // player
     private readonly InputActionMap m_player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_player_player_mouse;
+    private readonly InputAction m_player_player_mouse_x;
+    private readonly InputAction m_player_player_mouse_y;
     public struct PlayerActions
     {
         private @Player_new m_Wrapper;
         public PlayerActions(@Player_new wrapper) { m_Wrapper = wrapper; }
-        public InputAction @player_mouse => m_Wrapper.m_player_player_mouse;
+        public InputAction @player_mouse_x => m_Wrapper.m_player_player_mouse_x;
+        public InputAction @player_mouse_y => m_Wrapper.m_player_player_mouse_y;
         public InputActionMap Get() { return m_Wrapper.m_player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -200,16 +212,22 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @player_mouse.started += instance.OnPlayer_mouse;
-            @player_mouse.performed += instance.OnPlayer_mouse;
-            @player_mouse.canceled += instance.OnPlayer_mouse;
+            @player_mouse_x.started += instance.OnPlayer_mouse_x;
+            @player_mouse_x.performed += instance.OnPlayer_mouse_x;
+            @player_mouse_x.canceled += instance.OnPlayer_mouse_x;
+            @player_mouse_y.started += instance.OnPlayer_mouse_y;
+            @player_mouse_y.performed += instance.OnPlayer_mouse_y;
+            @player_mouse_y.canceled += instance.OnPlayer_mouse_y;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @player_mouse.started -= instance.OnPlayer_mouse;
-            @player_mouse.performed -= instance.OnPlayer_mouse;
-            @player_mouse.canceled -= instance.OnPlayer_mouse;
+            @player_mouse_x.started -= instance.OnPlayer_mouse_x;
+            @player_mouse_x.performed -= instance.OnPlayer_mouse_x;
+            @player_mouse_x.canceled -= instance.OnPlayer_mouse_x;
+            @player_mouse_y.started -= instance.OnPlayer_mouse_y;
+            @player_mouse_y.performed -= instance.OnPlayer_mouse_y;
+            @player_mouse_y.canceled -= instance.OnPlayer_mouse_y;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -238,6 +256,7 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnPlayer_mouse(InputAction.CallbackContext context);
+        void OnPlayer_mouse_x(InputAction.CallbackContext context);
+        void OnPlayer_mouse_y(InputAction.CallbackContext context);
     }
 }
