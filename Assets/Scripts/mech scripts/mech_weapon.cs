@@ -20,8 +20,23 @@ public class mech_weapon : MonoBehaviour
     public float sensitivity;
 
     public GameObject rotation_object;
-
+    
     public GameObject mech_cannon;
+    public Vector3 mech_cannon_offset;
+
+    public GameObject bullet;
+    public float bullet_speed;
+    public float bullet_destroy_sec;
+
+    public Quaternion late_mech_rotation;
+
+
+    public float speed = 0.01f;
+    public float timeCount = 0.0f;
+
+    float fire_time_now;
+    public float fire_time_offset;
+
 
     void Awake()
     {
@@ -39,10 +54,20 @@ public class mech_weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player_mouse_input.player.fire.triggered && fire_time_now < Time.time) 
+        {
+            fire_time_now = Time.time + fire_time_offset;
+            fire();
+        }
+        
         handleInputs();
-        //go_cannon();
+        go_cannon();
+        rotate_cannon_lerp();
+        
+
+        
         //rotate_cannon();
-        rotate_cannon_new();
+        //rotate_cannon_new();
     }
 
     void handleInputs() 
@@ -60,7 +85,7 @@ public class mech_weapon : MonoBehaviour
 
     void go_cannon()
     {
-        mech_cannon.transform.position = gameObject.transform.position * Time.deltaTime;
+        mech_cannon.transform.position = gameObject.transform.position + mech_cannon_offset;
     }
     void rotate_cannon() 
     {
@@ -75,4 +100,24 @@ public class mech_weapon : MonoBehaviour
     {
         mech_cannon.transform.rotation = rotation_object.transform.rotation;
     }
+    
+    void rotate_cannon_lerp() 
+    {
+        mech_cannon.transform.rotation = Quaternion.Lerp(mech_cannon.transform.rotation, rotation_object.transform.rotation, Time.deltaTime * speed);
+        
+    }
+
+
+    void fire()
+    {
+
+        GameObject bullet_clone = Instantiate(bullet, mech_cannon.transform.position, mech_cannon.transform.rotation);
+        bullet_clone.TryGetComponent<Rigidbody>(out Rigidbody bullet_rb);
+        if (bullet_rb != null)
+        {
+            bullet_rb.velocity = bullet_clone.transform.forward * bullet_speed * Time.deltaTime;
+            Destroy(bullet_clone, bullet_destroy_sec);
+        }
+    }
+    
 }
