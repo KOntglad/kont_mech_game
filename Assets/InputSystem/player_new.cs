@@ -44,6 +44,15 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""db5f1bd3-bfa1-4a6a-8f3e-eb540a0e519a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
                     ""action"": ""player_mouse_y"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ff42fbf-a148-470d-bcfe-dfdf028c3052"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -134,6 +154,7 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
         m_player = asset.FindActionMap("player", throwIfNotFound: true);
         m_player_player_mouse_x = m_player.FindAction("player_mouse_x", throwIfNotFound: true);
         m_player_player_mouse_y = m_player.FindAction("player_mouse_y", throwIfNotFound: true);
+        m_player_fire = m_player.FindAction("fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -197,12 +218,14 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_player_player_mouse_x;
     private readonly InputAction m_player_player_mouse_y;
+    private readonly InputAction m_player_fire;
     public struct PlayerActions
     {
         private @Player_new m_Wrapper;
         public PlayerActions(@Player_new wrapper) { m_Wrapper = wrapper; }
         public InputAction @player_mouse_x => m_Wrapper.m_player_player_mouse_x;
         public InputAction @player_mouse_y => m_Wrapper.m_player_player_mouse_y;
+        public InputAction @fire => m_Wrapper.m_player_fire;
         public InputActionMap Get() { return m_Wrapper.m_player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -218,6 +241,9 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
             @player_mouse_y.started += instance.OnPlayer_mouse_y;
             @player_mouse_y.performed += instance.OnPlayer_mouse_y;
             @player_mouse_y.canceled += instance.OnPlayer_mouse_y;
+            @fire.started += instance.OnFire;
+            @fire.performed += instance.OnFire;
+            @fire.canceled += instance.OnFire;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -228,6 +254,9 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
             @player_mouse_y.started -= instance.OnPlayer_mouse_y;
             @player_mouse_y.performed -= instance.OnPlayer_mouse_y;
             @player_mouse_y.canceled -= instance.OnPlayer_mouse_y;
+            @fire.started -= instance.OnFire;
+            @fire.performed -= instance.OnFire;
+            @fire.canceled -= instance.OnFire;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -258,5 +287,6 @@ public partial class @Player_new: IInputActionCollection2, IDisposable
     {
         void OnPlayer_mouse_x(InputAction.CallbackContext context);
         void OnPlayer_mouse_y(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }
