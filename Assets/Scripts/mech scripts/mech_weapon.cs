@@ -20,8 +20,12 @@ public class mech_weapon : MonoBehaviour
     public float sensitivity;
 
     public GameObject rotation_object;
-
     public GameObject mech_cannon;
+    public Quaternion late_mech_rotation;
+
+    public float speed = 0.01f;
+    public float timeCount = 0.0f;
+
 
     void Awake()
     {
@@ -42,7 +46,8 @@ public class mech_weapon : MonoBehaviour
         handleInputs();
         //go_cannon();
         //rotate_cannon();
-        rotate_cannon_new();
+        //rotate_cannon_new();
+        rotate_cannon_lerp();
     }
 
     void handleInputs() 
@@ -74,5 +79,11 @@ public class mech_weapon : MonoBehaviour
     void rotate_cannon_new() 
     {
         mech_cannon.transform.rotation = rotation_object.transform.rotation;
+    }
+    
+    void rotate_cannon_lerp() 
+    {
+        mech_cannon.transform.rotation = Quaternion.Lerp(mech_cannon.transform.rotation, rotation_object.transform.rotation, Time.deltaTime * speed);
+        
     }
 }
