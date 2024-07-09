@@ -16,10 +16,10 @@ TagManager:
   - 
   - Character
   - Ground
-  - 
-  - 
-  - 
-  - 
+  - player
+  - enemy
+  - ball
+  - enemy_attack
   - 
   - 
   - 
