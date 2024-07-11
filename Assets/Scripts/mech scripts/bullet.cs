@@ -8,7 +8,10 @@ public class bullet : MonoBehaviour
     {
         if(collision.gameObject.layer == 11)
         {
-            Destroy(collision.gameObject);
+            if(collision.gameObject.TryGetComponent<enemy_0_script>(out enemy_0_script _enemy))
+            {
+                _enemy.takeDamage();
+            }
         }
     }
 }

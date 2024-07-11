@@ -20,8 +20,13 @@ public class mech_weapon : MonoBehaviour
     public float sensitivity;
 
     public GameObject rotation_object;
+    public float offset_x;
+    public float offset_y;
+    public float offset_z;
+
     
     public GameObject mech_cannon;
+    public Transform bullet_fire_transform;
     public Vector3 mech_cannon_offset;
 
     public GameObject bullet;
@@ -103,7 +108,9 @@ public class mech_weapon : MonoBehaviour
     
     void rotate_cannon_lerp() 
     {
-        mech_cannon.transform.rotation = Quaternion.Lerp(mech_cannon.transform.rotation, rotation_object.transform.rotation, Time.deltaTime * speed);
+
+        Quaternion temp = Quaternion.Euler(-rotation_object.transform.rotation.eulerAngles.x + offset_x, rotation_object.transform.rotation.eulerAngles.y + offset_y, rotation_object.transform.rotation.eulerAngles.z + offset_z);
+        mech_cannon.transform.rotation = Quaternion.Lerp(mech_cannon.transform.rotation, temp, Time.deltaTime * speed);
         
     }
 
@@ -111,11 +118,11 @@ public class mech_weapon : MonoBehaviour
     void fire()
     {
 
-        GameObject bullet_clone = Instantiate(bullet, mech_cannon.transform.position, mech_cannon.transform.rotation);
+        GameObject bullet_clone = Instantiate(bullet, bullet_fire_transform.position, bullet_fire_transform.rotation);
         bullet_clone.TryGetComponent<Rigidbody>(out Rigidbody bullet_rb);
         if (bullet_rb != null)
         {
-            bullet_rb.velocity = bullet_clone.transform.forward * bullet_speed * Time.deltaTime;
+            bullet_rb.velocity = -bullet_clone.transform.forward * bullet_speed * Time.deltaTime;
             Destroy(bullet_clone, bullet_destroy_sec);
         }
     }
