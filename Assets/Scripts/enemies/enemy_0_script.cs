@@ -120,6 +120,7 @@ public class enemy_0_script : MonoBehaviour
         {
             if (health - 1 <= 0)
             {
+                FindObjectOfType<spawner>().monsterEliminated();
                 Destroy(gameObject);
             }
             else

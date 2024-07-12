@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GAMEMANAGER : MonoBehaviour
+public class game_manager : MonoBehaviour
 {
     public spawner game_spawner;
     public GameObject panel_paused;
+    public GameObject player_hud;
     
     // Start is called before the first frame update
     void Start()
@@ -16,7 +17,7 @@ public class GAMEMANAGER : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        victoryStatus();
     }
 
 
@@ -24,7 +25,9 @@ public class GAMEMANAGER : MonoBehaviour
     {
         if (game_spawner.eliminated_monsters >= game_spawner.max_spawned_monsters) 
         {
-            Debug.Log("victory");       
+            player_hud.SetActive(false);
+            panel_paused.SetActive(true);
+            Time.timeScale = 0f;
         }
     
     }
