@@ -6,8 +6,11 @@ public class enemy_0_script : MonoBehaviour
 {
     public Rigidbody enemy_rb;
     public float enemy_speed;
+    public float gravity;
 
-    public GameObject enemy_attack_object;
+    //public GameObject enemy_attack_object;
+    public Transform enemy_ground_detection;
+    public float enemy_ground_detection_distance;
     public float attack_rotation_speed;
 
 
@@ -56,7 +59,17 @@ public class enemy_0_script : MonoBehaviour
                 if (Vector3.Distance(gameObject.transform.position, player_transform.position) > enemy_attack_distance)
                 {
                     transform.LookAt(new Vector3(player_transform.position.x, gameObject.transform.position.y, player_transform.position.z));
-                    enemy_rb.velocity = gameObject.transform.forward * enemy_speed * Time.deltaTime;
+                    if (Physics.Raycast(enemy_ground_detection.position, -transform.up, 3f))
+                    {
+                        enemy_rb.velocity = gameObject.transform.forward * enemy_speed * Time.deltaTime;
+                    }
+                    else 
+                    {
+                        enemy_rb.velocity = gameObject.transform.up * gravity * Time.deltaTime;
+                    
+                    }    
+                
+                
                 }
                 else
                 {

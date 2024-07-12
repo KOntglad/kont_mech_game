@@ -5,9 +5,24 @@ using UnityEngine;
 public class spawner : MonoBehaviour
 {
     public Transform[] spawn_points;
+    public GameObject[] spawn_objects;
+
     public float spawn_time;
-    public int spawn_count_behaviour;
     
+    public float spawn_time_offset;
+    public int spawn_count_behaviour;
+    public int eliminated_monsters;
+    public int max_spawned_monsters;
+
+
+    public enum spawner_states 
+    {
+        single,
+        multiple
+    
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +32,18 @@ public class spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        spawn_time += Time.deltaTime;
+        if(spawn_time > spawn_time_offset) 
+        {
+            spawn_time = 0f;
+            spawnObject((int)Random.Range(0, spawn_objects.Length));
+        }
     }
+
+    void spawnObject(int point) 
+    {
+        Instantiate(spawn_objects[(int)Random.Range(0,2.1f)],spawn_points[point].position, spawn_points[point].rotation);
+    }
+
+
 }
