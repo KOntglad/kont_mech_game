@@ -52,6 +52,7 @@ public class enemy_0_script : MonoBehaviour
                 enemy_object_states = enemy_states.follow;
                 break;
             case enemy_states.follow:
+
                 if (Vector3.Distance(gameObject.transform.position, player_transform.position) > enemy_attack_distance)
                 {
                     transform.LookAt(new Vector3(player_transform.position.x, gameObject.transform.position.y, player_transform.position.z));
@@ -64,16 +65,16 @@ public class enemy_0_script : MonoBehaviour
                 break;
             case enemy_states.prepare:
                 prepare_time_now += Time.deltaTime;
-                if (enemy_attack_object.activeSelf == false)
-                {
-                    enemy_attack_object.SetActive(true);
-                    enemy_attack_object.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                //if (enemy_attack_object.activeSelf == false)
+                //{
+                //    //enemy_attack_object.SetActive(true);
+                //    //enemy_attack_object.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
-                }
-                //enemy_0_animator.SetBool("prepare", true);
+                //}
+                enemy_0_animator.SetBool("prepare", true);
                 if (prepare_time_now > prepare_time_max) 
                 {
-                    //enemy_0_animator.SetBool("prepare", false);
+                    enemy_0_animator.SetBool("prepare", false);
                     prepare_time_now = 0;
                     enemy_object_states = enemy_states.attack;
                 }
@@ -84,11 +85,11 @@ public class enemy_0_script : MonoBehaviour
 
                 attack_time_now += Time.deltaTime;
 
-                enemy_attack_object.transform.Rotate(0f, attack_rotation_speed * Time.deltaTime, 0f);
+                //enemy_attack_object.transform.Rotate(0f, attack_rotation_speed * Time.deltaTime, 0f);
                 if (attack_time_now > attack_time_max)
                 {
-                    enemy_attack_object.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                    enemy_attack_object.SetActive(false);
+                    //enemy_attack_object.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                    //enemy_attack_object.SetActive(false);
                     
                     attack_time_now = 0;
                     enemy_object_states = enemy_states.follow;

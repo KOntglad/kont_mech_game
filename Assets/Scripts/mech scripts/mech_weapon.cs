@@ -7,6 +7,8 @@ public class mech_weapon : MonoBehaviour
     // Start is called before the first frame update
     public TMPro.TextMeshProUGUI tmp_x;
     public TMPro.TextMeshProUGUI tmp_y;
+    public TMPro.TextMeshProUGUI tmp_move_x;
+    public TMPro.TextMeshProUGUI tmp_move_y;
     
     private Player_new player_mouse_input;
     public  StarterAssets.StarterAssetsInputs player_sai;
@@ -77,12 +79,19 @@ public class mech_weapon : MonoBehaviour
 
     void handleInputs() 
     {
-        _mouse_input_x = player_mouse_input.player.player_mouse_x.ReadValue<float>();
-        _mouse_input_y = player_mouse_input.player.player_mouse_y.ReadValue<float>();
+        _mouse_input_x = player_mouse_input.player.player_mouse_x.ReadValue<float>() * 3;
+        _mouse_input_y = player_mouse_input.player.player_mouse_y.ReadValue<float>() * 3;
+        
+        
         //tmp_x.text = mouse_input_x.ToString();
         //tmp_y.text = mouse_input_y.ToString();
         tmp_x.text = player_sai.look.x.ToString();
         tmp_y.text = player_sai.look.y.ToString();
+
+        tmp_move_x.text = player_sai.move.x.ToString("0");
+        tmp_move_y.text = player_sai.move.y.ToString("0");
+        
+        
         _x_axis += player_sai.look.x * Time.deltaTime * sensitivity;
         _y_axis += player_sai.look.y * Time.deltaTime * sensitivity;
 
