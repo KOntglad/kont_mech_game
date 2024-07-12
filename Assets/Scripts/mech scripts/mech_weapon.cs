@@ -9,6 +9,7 @@ public class mech_weapon : MonoBehaviour
     public TMPro.TextMeshProUGUI tmp_y;
     public TMPro.TextMeshProUGUI tmp_move_x;
     public TMPro.TextMeshProUGUI tmp_move_y;
+    public TMPro.TextMeshProUGUI tmp_bullet_status;
     
     private Player_new player_mouse_input;
     public  StarterAssets.StarterAssetsInputs player_sai;
@@ -61,6 +62,9 @@ public class mech_weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bulletStatus();
+
+
         if (player_mouse_input.player.fire.triggered && fire_time_now < Time.time) 
         {
             fire_time_now = Time.time + fire_time_offset;
@@ -121,6 +125,18 @@ public class mech_weapon : MonoBehaviour
         Quaternion temp = Quaternion.Euler(-rotation_object.transform.rotation.eulerAngles.x + offset_x, rotation_object.transform.rotation.eulerAngles.y + offset_y, rotation_object.transform.rotation.eulerAngles.z + offset_z);
         mech_cannon.transform.rotation = Quaternion.Lerp(mech_cannon.transform.rotation, temp, Time.deltaTime * speed);
         
+    }
+
+    void bulletStatus() 
+    {
+        if(fire_time_now > Time.time) 
+        {
+            tmp_bullet_status.text = "WAIT";
+        }
+        else
+        {
+            tmp_bullet_status.text = "FIRE";
+        }
     }
 
 

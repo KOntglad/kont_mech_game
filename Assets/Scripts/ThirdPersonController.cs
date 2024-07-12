@@ -75,6 +75,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -86,6 +88,8 @@ namespace StarterAssets
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
+
+        public TMPro.TextMeshProUGUI tmp_velociy;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -159,6 +163,8 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+        
+        
         }
 
         private void LateUpdate()
@@ -275,6 +281,7 @@ namespace StarterAssets
             if (_hasAnimator)
             {
                 _animator.SetFloat("speed",_speed);
+                tmp_velociy.text = _speed.ToString("0");
                 //_animator.SetFloat(_animIDSpeed, _animationBlend);
                 //_animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
