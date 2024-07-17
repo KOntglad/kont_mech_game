@@ -11,7 +11,12 @@ public class bullet : MonoBehaviour
             if(collision.gameObject.TryGetComponent<enemy_0_script>(out enemy_0_script _enemy))
             {
                 _enemy.takeDamage();
+                Destroy(gameObject);
             }
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

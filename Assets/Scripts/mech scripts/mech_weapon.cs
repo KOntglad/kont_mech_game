@@ -46,6 +46,9 @@ public class mech_weapon : MonoBehaviour
     public float fire_time_offset;
 
 
+    public AudioSource audio_weapon_source;
+    public AudioClip[] audio_weapon_sounds;
+
     void Awake()
     {
         player_mouse_input = new Player_new();
@@ -135,7 +138,12 @@ public class mech_weapon : MonoBehaviour
         }
         else
         {
-            tmp_bullet_status.text = "FIRE";
+            if (audio_weapon_source.clip != audio_weapon_sounds[1])
+            {
+                audio_weapon_source.clip = audio_weapon_sounds[1];
+                audio_weapon_source.Play();
+            }
+                tmp_bullet_status.text = "FIRE";
         }
     }
 
@@ -143,12 +151,17 @@ public class mech_weapon : MonoBehaviour
     void fire()
     {
 
+        audio_weapon_source.clip = audio_weapon_sounds[0];
+        audio_weapon_source.Play();
+        
         GameObject bullet_clone = Instantiate(bullet, bullet_fire_transform.position, bullet_fire_transform.rotation);
         bullet_clone.TryGetComponent<Rigidbody>(out Rigidbody bullet_rb);
         if (bullet_rb != null)
         {
+
             bullet_rb.velocity = -bullet_clone.transform.forward * bullet_speed * Time.deltaTime;
             Destroy(bullet_clone, bullet_destroy_sec);
+            
         }
     }
     

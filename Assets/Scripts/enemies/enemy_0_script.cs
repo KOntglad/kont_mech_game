@@ -8,6 +8,10 @@ public class enemy_0_script : MonoBehaviour
     public float enemy_speed;
     public float gravity;
 
+    public float attack_radius;
+    public Transform attack_position;
+
+
     //public GameObject enemy_attack_object;
     public Transform enemy_ground_detection;
     public float enemy_ground_detection_distance;
@@ -113,6 +117,21 @@ public class enemy_0_script : MonoBehaviour
         
         
     }
+
+    public void attack() 
+    {
+        RaycastHit[] results = Physics.SphereCastAll(attack_position.position, attack_radius, attack_position.forward, 10);
+        foreach(RaycastHit result in results) 
+        {
+            if (result.collider.gameObject.TryGetComponent<mech_main>(out mech_main _obj_mech))
+                _obj_mech.takeDamage();
+        
+        }
+    
+    }
+
+
+
 
     public void takeDamage()
     {

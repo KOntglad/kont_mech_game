@@ -5,7 +5,8 @@ using UnityEngine;
 public class game_manager : MonoBehaviour
 {
     public spawner game_spawner;
-    public GameObject panel_paused;
+    public GameObject panel_victory;
+    public GameObject panel_defeat;
     public GameObject player_hud;
     
     // Start is called before the first frame update
@@ -26,29 +27,32 @@ public class game_manager : MonoBehaviour
         if (game_spawner.eliminated_monsters >= game_spawner.max_spawned_monsters) 
         {
             player_hud.SetActive(false);
-            panel_paused.SetActive(true);
+            panel_victory.SetActive(true);
             Time.timeScale = 0f;
         }
     
     }
 
 
-    void lose() 
+    public void lose() 
     {
+        Time.timeScale = 0f;
+        player_hud.SetActive(false);
+        panel_defeat.SetActive(true);        
         Debug.Log("lose");
     }
 
     void openMenu()
     {
-        if(panel_paused.activeSelf == false)
-        panel_paused.SetActive(true);
+        if(panel_victory.activeSelf == false)
+        panel_victory.SetActive(true);
         
     } 
     
     void closeMenu()
     {
-        if(panel_paused.activeSelf == true)
-        panel_paused.SetActive(false);
+        if(panel_victory.activeSelf == true)
+        panel_victory.SetActive(false);
     
     }
 

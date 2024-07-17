@@ -5,16 +5,19 @@ using UnityEngine;
 public class mech_main : MonoBehaviour
 {
     public float mech_health;
-
+    public TMPro.TextMeshProUGUI tmp_health;
 
     public float damage_now;
     public float damage_offset;
+    public AudioSource mech_sound;
+    public AudioClip mech_warning;
     
+        
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        tmp_health.text = mech_health.ToString();
     }
 
     // Update is called once per frame
@@ -31,6 +34,15 @@ public class mech_main : MonoBehaviour
         if(damage_now <= Time.time) 
         {
             mech_health--;
+            
+            if(mech_sound.clip != mech_warning) 
+            {
+                mech_sound.clip = mech_warning;
+            }
+            
+            mech_sound.Play();
+            
+            tmp_health.text = mech_health.ToString();
             Debug.Log(mech_health);
             damage_now = Time.time + damage_offset;
         }
@@ -41,8 +53,9 @@ public class mech_main : MonoBehaviour
     {
         if(mech_health <= 0)
         {
-
-            Destroy(gameObject);
+            FindObjectOfType<game_manager>().lose();
+            //Destroy(gameObject);
+        
         }
     }
 
