@@ -24,10 +24,10 @@ MonoBehaviour:
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: -12.6
+    m_Value: -37
 --- !u!114 &-3518579676613972263
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -46,10 +46,10 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.45
+    m_Value: 0.62
   response:
     m_OverrideState: 1
-    m_Value: 0.8
+    m_Value: 0.608
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}

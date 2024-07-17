@@ -40,7 +40,7 @@ public class spawner : MonoBehaviour
         {
             spawn_time = 0f;
             
-            spawnObject((int)Random.Range(0, spawn_objects.Length));
+            spawnObject((int)Random.Range(0, spawn_points.Length));
             now_spawned_monsters++;
         }
     }

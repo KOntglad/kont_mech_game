@@ -11,6 +11,8 @@ public class mech_main : MonoBehaviour
     public float damage_offset;
     public AudioSource mech_sound;
     public AudioClip mech_warning;
+    public AudioClip mech_damage;
+    public float damage_volume;
     
         
     
@@ -23,7 +25,6 @@ public class mech_main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        damageStatus();
     }
 
     
@@ -34,12 +35,13 @@ public class mech_main : MonoBehaviour
         if(damage_now <= Time.time) 
         {
             mech_health--;
-            
-            if(mech_sound.clip != mech_warning) 
+            if(mech_health <= 0) 
             {
-                mech_sound.clip = mech_warning;
+                FindObjectOfType<game_manager>().lose();
             }
             
+            AudioSource.PlayClipAtPoint(mech_damage, gameObject.transform.position, damage_volume);
+            mech_sound.clip = mech_warning;
             mech_sound.Play();
             
             tmp_health.text = mech_health.ToString();

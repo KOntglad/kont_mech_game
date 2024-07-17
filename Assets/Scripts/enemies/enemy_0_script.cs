@@ -48,6 +48,7 @@ public class enemy_0_script : MonoBehaviour
     void Start()
     {
         enemy_object_states = enemy_states.idle;
+        player_transform = FindObjectOfType<mech_main>().transform;
     }
 
     // Update is called once per frame
