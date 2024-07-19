@@ -164,5 +164,25 @@ public class mech_weapon : MonoBehaviour
             
         }
     }
-    
+
+    private void OnDrawGizmos()
+    {
+        
+            // Draw a yellow sphere at the transform's position
+            Gizmos.color = Color.white;
+        //Gizmos.DrawSphere(bullet_fire_transform.position + bullet_fire_transform.forward * 100f, 1);
+        Gizmos.DrawLine(rotation_object.transform.position + rotation_object.transform.forward * 50f - rotation_object.transform.right * 5, rotation_object.transform.position + rotation_object.transform.forward * 50f + rotation_object.transform.right * 5);
+        Gizmos.DrawLine(rotation_object.transform.position + rotation_object.transform.forward * 50f - rotation_object.transform.up * 5, rotation_object.transform.position + rotation_object.transform.forward * 50f + rotation_object.transform.up * 5);
+        Gizmos.color = Color.green; 
+        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 30f, bullet_fire_transform.position + -bullet_fire_transform.forward * 30f - bullet_fire_transform.up * 5);
+        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 30f, bullet_fire_transform.position + -bullet_fire_transform.forward * 30f - bullet_fire_transform.right * 2);
+        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 60f, bullet_fire_transform.position + -bullet_fire_transform.forward * 60f - bullet_fire_transform.up * 5);
+        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 60f, bullet_fire_transform.position + -bullet_fire_transform.forward * 60f - bullet_fire_transform.right * 2);
+        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 90f, bullet_fire_transform.position + -bullet_fire_transform.forward * 90f - bullet_fire_transform.up * 5);
+        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 90f, bullet_fire_transform.position + -bullet_fire_transform.forward * 90f - bullet_fire_transform.right * 2);
+      
+        
+
+    }
+
 }
