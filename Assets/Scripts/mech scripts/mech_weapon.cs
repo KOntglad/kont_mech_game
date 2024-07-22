@@ -27,6 +27,15 @@ public class mech_weapon : MonoBehaviour
     public float offset_y;
     public float offset_z;
 
+    public Vector3 crosshair_x_start;
+    public Vector3 crosshair_x_end;
+    public Vector3 crosshair_y_start;
+    public Vector3 crosshair_y_end;
+    public float crosshair_offset;
+    public float crosshair_distance;
+
+    
+
     
     public GameObject mech_cannon;
     public Transform bullet_fire_transform;
@@ -49,6 +58,10 @@ public class mech_weapon : MonoBehaviour
     public AudioSource audio_weapon_source;
     public AudioClip[] audio_weapon_sounds;
 
+
+    public GameObject weapon_particle;
+    public float particle_destroy_sec;
+    
     void Awake()
     {
         player_mouse_input = new Player_new();
@@ -152,8 +165,12 @@ public class mech_weapon : MonoBehaviour
     {
 
         audio_weapon_source.clip = audio_weapon_sounds[0];
-        audio_weapon_source.Play();
         
+        audio_weapon_source.Play();
+
+        GameObject _particle = Instantiate(weapon_particle, bullet_fire_transform.position, bullet_fire_transform.rotation * Quaternion.Euler(0f,180,0f));
+        Destroy(_particle, particle_destroy_sec);
+
         GameObject bullet_clone = Instantiate(bullet, bullet_fire_transform.position, bullet_fire_transform.rotation);
         bullet_clone.TryGetComponent<Rigidbody>(out Rigidbody bullet_rb);
         if (bullet_rb != null)
@@ -169,19 +186,17 @@ public class mech_weapon : MonoBehaviour
     {
         
             // Draw a yellow sphere at the transform's position
-            Gizmos.color = Color.white;
-        //Gizmos.DrawSphere(bullet_fire_transform.position + bullet_fire_transform.forward * 100f, 1);
-        Gizmos.DrawLine(rotation_object.transform.position + rotation_object.transform.forward * 50f - rotation_object.transform.right * 5, rotation_object.transform.position + rotation_object.transform.forward * 50f + rotation_object.transform.right * 5);
-        Gizmos.DrawLine(rotation_object.transform.position + rotation_object.transform.forward * 50f - rotation_object.transform.up * 5, rotation_object.transform.position + rotation_object.transform.forward * 50f + rotation_object.transform.up * 5);
-        Gizmos.color = Color.green; 
-        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 30f, bullet_fire_transform.position + -bullet_fire_transform.forward * 30f - bullet_fire_transform.up * 5);
-        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 30f, bullet_fire_transform.position + -bullet_fire_transform.forward * 30f - bullet_fire_transform.right * 2);
-        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 60f, bullet_fire_transform.position + -bullet_fire_transform.forward * 60f - bullet_fire_transform.up * 5);
-        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 60f, bullet_fire_transform.position + -bullet_fire_transform.forward * 60f - bullet_fire_transform.right * 2);
-        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 90f, bullet_fire_transform.position + -bullet_fire_transform.forward * 90f - bullet_fire_transform.up * 5);
-        Gizmos.DrawLine(bullet_fire_transform.position + -bullet_fire_transform.forward * 90f, bullet_fire_transform.position + -bullet_fire_transform.forward * 90f - bullet_fire_transform.right * 2);
+            //Gizmos.color = Color.white;
+            Gizmos.color = Color.green;
+            
+        Gizmos.DrawLine(bullet_fire_transform.position - (bullet_fire_transform.forward * 20 * crosshair_distance) + (bullet_fire_transform.up * crosshair_y_start.y) + (mech_cannon.transform.right * crosshair_y_start.x),     bullet_fire_transform.position - (bullet_fire_transform.forward * 20 * crosshair_distance) + (bullet_fire_transform.transform.up * crosshair_y_end.y) + (bullet_fire_transform.transform.right * crosshair_y_end.x));
+        Gizmos.DrawLine(bullet_fire_transform.position - (bullet_fire_transform.forward * 40 * crosshair_distance) + (bullet_fire_transform.up * crosshair_y_start.y) + (mech_cannon.transform.right * crosshair_y_start.x),     bullet_fire_transform.position - (bullet_fire_transform.forward * 40 * crosshair_distance) + (bullet_fire_transform.transform.up * crosshair_y_end.y) + (bullet_fire_transform.transform.right * crosshair_y_end.x));
+        Gizmos.DrawLine(bullet_fire_transform.position - (bullet_fire_transform.forward * 60 * crosshair_distance) + (bullet_fire_transform.up * crosshair_y_start.y) + (mech_cannon.transform.right * crosshair_y_start.x),     bullet_fire_transform.position - (bullet_fire_transform.forward * 60 * crosshair_distance) + (bullet_fire_transform.transform.up * crosshair_y_end.y) + (bullet_fire_transform.transform.right * crosshair_y_end.x));
       
         
+        Gizmos.DrawLine(bullet_fire_transform.position - (bullet_fire_transform.forward * 20 * crosshair_distance) + (bullet_fire_transform.up * crosshair_x_start.y) + (mech_cannon.transform.right * crosshair_x_start.x),     bullet_fire_transform.position - (bullet_fire_transform.forward * 20 * crosshair_distance) + (bullet_fire_transform.transform.up * crosshair_x_end.y) + (bullet_fire_transform.transform.right * crosshair_x_end.x));
+        Gizmos.DrawLine(bullet_fire_transform.position - (bullet_fire_transform.forward * 40 * crosshair_distance) + (bullet_fire_transform.up * crosshair_x_start.y) + (mech_cannon.transform.right * crosshair_x_start.x),     bullet_fire_transform.position - (bullet_fire_transform.forward * 40 * crosshair_distance) + (bullet_fire_transform.transform.up * crosshair_x_end.y) + (bullet_fire_transform.transform.right * crosshair_x_end.x));
+        Gizmos.DrawLine(bullet_fire_transform.position - (bullet_fire_transform.forward * 60 * crosshair_distance) + (bullet_fire_transform.up * crosshair_x_start.y) + (mech_cannon.transform.right * crosshair_x_start.x),     bullet_fire_transform.position - (bullet_fire_transform.forward * 60 * crosshair_distance) + (bullet_fire_transform.transform.up * crosshair_x_end.y) + (bullet_fire_transform.transform.right * crosshair_x_end.x));
 
     }
 

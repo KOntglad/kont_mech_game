@@ -17,6 +17,7 @@ public class spawner : MonoBehaviour
     public int max_spawned_monsters;
     public int now_spawned_monsters;
 
+    int temp = 0;
 
     public enum spawner_states 
     {
@@ -38,10 +39,15 @@ public class spawner : MonoBehaviour
         spawn_time += Time.deltaTime;
         if(spawn_time > spawn_time_offset && now_spawned_monsters < max_spawned_monsters) 
         {
-            spawn_time = 0f;
-            
-            spawnObject((int)Random.Range(0, spawn_points.Length));
-            now_spawned_monsters++;
+            int rand = (int)Random.Range(0, spawn_points.Length);
+            if (temp != rand)
+            {
+                spawnObject(rand);
+                now_spawned_monsters++;
+                spawn_time = 0f;
+            }
+            else
+                return;
         }
     }
 

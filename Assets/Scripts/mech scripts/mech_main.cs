@@ -13,18 +13,32 @@ public class mech_main : MonoBehaviour
     public AudioClip mech_warning;
     public AudioClip mech_damage;
     public float damage_volume;
+
+    public StarterAssets.ThirdPersonController mech_tps_controller;
     
-        
+
+    public enum mech_damage_states 
+    {
+        normal,
+        hit
+    }
+
+    public mech_damage_states mech_obj_damage_states;
+    
     
     // Start is called before the first frame update
     void Start()
     {
+        mech_obj_damage_states = mech_damage_states.normal;
         tmp_health.text = mech_health.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
+    
+    
+    
     }
 
     
@@ -50,6 +64,9 @@ public class mech_main : MonoBehaviour
         }
     
     }
+
+
+
 
     void damageStatus() 
     {

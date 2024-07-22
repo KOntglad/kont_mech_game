@@ -32,14 +32,20 @@ public class enemy_0_script : MonoBehaviour
     
     public float attack_time_now;
     public float attack_time_max;
+    
+    
+    public float hit_time_now;
+    public float hit_time_max;
 
 
     public enum enemy_states 
     {
         idle,
         follow,
+        house_follow,
         prepare,
-        attack
+        attack,
+        hit
     }
 
     public enemy_states enemy_object_states;
@@ -59,6 +65,12 @@ public class enemy_0_script : MonoBehaviour
             case enemy_states.idle:
                 enemy_object_states = enemy_states.follow;
                 break;
+            case enemy_states.house_follow:
+                
+                break;
+            
+            
+            
             case enemy_states.follow:
 
                 if (Vector3.Distance(gameObject.transform.position, player_transform.position) > enemy_attack_distance)
@@ -83,13 +95,9 @@ public class enemy_0_script : MonoBehaviour
                 break;
             case enemy_states.prepare:
                 prepare_time_now += Time.deltaTime;
-                //if (enemy_attack_object.activeSelf == false)
-                //{
-                //    //enemy_attack_object.SetActive(true);
-                //    //enemy_attack_object.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-
-                //}
                 enemy_0_animator.SetBool("prepare", true);
+                transform.LookAt(new Vector3(player_transform.position.x, gameObject.transform.position.y, player_transform.position.z));
+                enemy_rb.constraints = RigidbodyConstraints.FreezePosition;
                 if (prepare_time_now > prepare_time_max) 
                 {
                     enemy_0_animator.SetBool("prepare", false);
@@ -110,10 +118,30 @@ public class enemy_0_script : MonoBehaviour
                     //enemy_attack_object.SetActive(false);
                     
                     attack_time_now = 0;
+                    enemy_rb.constraints = RigidbodyConstraints.None;
+                    enemy_rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    enemy_rb.constraints = RigidbodyConstraints.FreezePositionZ;
+
                     enemy_object_states = enemy_states.follow;
                 }
                 break;
 
+            case enemy_states.hit:
+                {
+                    if(hit_time_now == 0f)
+                    enemy_0_animator.SetTrigger("hit");
+
+                    hit_time_now += Time.deltaTime;
+                    if(hit_time_now > hit_time_max) 
+                    {
+                        hit_time_now = 0f;
+                        enemy_object_states = enemy_states.follow;
+                    }
+
+                
+                }
+                break;
+        
         }
         
         
@@ -138,17 +166,21 @@ public class enemy_0_script : MonoBehaviour
     {
         if (damage_now <= Time.time)
         {
-            if (health - 1 <= 0)
+           
+                health--;
+                
+            if (health <= 0)
             {
                 FindObjectOfType<spawner>().monsterEliminated();
                 Destroy(gameObject);
-            }
-            else
-            {
-                health--;
+                return;
+            } 
+                
                 Debug.Log(health);
                 damage_now = Time.time + damage_offset;
-            } }
+                enemy_object_states = enemy_states.hit;
+        
+        }
 
     }
 

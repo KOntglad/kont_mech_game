@@ -215,14 +215,16 @@ MonoBehaviour:
   attack_rotation_speed: 50
   player_transform: {fileID: 0}
   enemy_0_animator: {fileID: 8716172372495406107}
-  enemy_attack_distance: 20
-  health: 2
+  enemy_attack_distance: 40
+  health: 5
   damage_now: 0
   damage_offset: 1
   prepare_time_now: 0
   prepare_time_max: 1
   attack_time_now: 0
   attack_time_max: 2
+  hit_time_now: 0
+  hit_time_max: 0
   enemy_object_states: 1
 --- !u!1 &8716172372383697738
 GameObject:
