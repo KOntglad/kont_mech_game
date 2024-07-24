@@ -153,7 +153,7 @@ public class enemy_0_script : MonoBehaviour
         foreach(RaycastHit result in results) 
         {
             if (result.collider.gameObject.TryGetComponent<mech_main>(out mech_main _obj_mech))
-                _obj_mech.takeDamage();
+                _obj_mech.takeDamage(this.gameObject.transform);
         
         }
     

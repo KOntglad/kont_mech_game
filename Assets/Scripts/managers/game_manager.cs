@@ -8,7 +8,11 @@ public class game_manager : MonoBehaviour
     public GameObject panel_victory;
     public GameObject panel_defeat;
     public GameObject player_hud;
+
+    public TMPro.TextMeshProUGUI tmp_time;
     
+    public float time;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +22,17 @@ public class game_manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time -= Time.deltaTime;
+        tmp_time.text = time.ToString("F1");
+        
+        if(time <= 0f) 
+        {
+            lose();
+        }        
+        
+        
         victoryStatus();
+
     }
 
 

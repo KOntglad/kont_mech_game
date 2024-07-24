@@ -15,7 +15,16 @@ public class mech_main : MonoBehaviour
     public float damage_volume;
 
     public StarterAssets.ThirdPersonController mech_tps_controller;
-    
+
+    public float hit_exit_now;
+    public float hit_exit_max;
+
+
+    public Transform hit_enemy_transform;
+    public float hit_enemy_speed;
+
+
+    public Animator mech_animator;
 
     public enum mech_damage_states 
     {
@@ -37,14 +46,47 @@ public class mech_main : MonoBehaviour
     void Update()
     {
     
+        switch(mech_obj_damage_states)
+        {
+            case mech_damage_states.normal:
+                break;
+
+            case mech_damage_states.hit:
+                if(mech_tps_controller.isActiveAndEnabled == true && hit_exit_now == 0f) 
+                {
+                    mech_tps_controller.enabled = false;
+                }
+                
+                hit_exit_now += Time.deltaTime;
+                
+                if(mech_tps_controller.isActiveAndEnabled == false) 
+                {
+                    //  Vector3.MoveTowards()
+                
+                }
+
+
+                if(hit_exit_now > hit_exit_max) 
+                {
+                    hit_exit_now = 0f;
+                    mech_tps_controller.enabled = true;
+                    mech_obj_damage_states = mech_damage_states.normal;
+                }
+
+
+                break;
+
+            default:
+                break;
+        }
     
-    
+        
     }
 
     
 
 
-    public void takeDamage() 
+    public void takeDamage(Transform _monster_transform) 
     {
         if(damage_now <= Time.time) 
         {
@@ -54,6 +96,14 @@ public class mech_main : MonoBehaviour
                 FindObjectOfType<game_manager>().lose();
             }
             
+            if(mech_obj_damage_states != mech_damage_states.hit) 
+            {
+                mech_obj_damage_states = mech_damage_states.hit;
+                mech_animator.SetTrigger("hit");
+                hit_enemy_transform = _monster_transform;
+            }
+
+
             AudioSource.PlayClipAtPoint(mech_damage, gameObject.transform.position, damage_volume);
             mech_sound.clip = mech_warning;
             mech_sound.Play();

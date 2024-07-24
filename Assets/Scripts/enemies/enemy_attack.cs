@@ -22,7 +22,7 @@ public class enemy_attack : MonoBehaviour
             Debug.Log("hey");
             if(collision.gameObject.TryGetComponent<mech_main>(out mech_main _player))
             {
-                _player.takeDamage();
+                _player.takeDamage(gameObject.transform);
             }
         }
     }
